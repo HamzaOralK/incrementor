@@ -6,7 +6,6 @@ import (
 	"incrementor/clients"
 	"incrementor/utility"
 	"log"
-	"strings"
 )
 
 func main() {
@@ -18,17 +17,19 @@ func main() {
 	repository := flag.String("repository", "", "Repository name.")
 	prefix := flag.String("prefix", "", "prefix used in release branch name.")
 	separator := flag.String("separator", "", "Separator used in release branch name.")
-	branch := flag.String("branch", "", "Release branch name.")
+	branchName := flag.String("branch", "", "Release branch name.")
 	flag.Parse()
 
-	normalizedBranch := strings.Replace(*branch, fmt.Sprintf("%s%s", *prefix, *separator), "", 1)
+	// removes prefix and seperator from the branch name
+	normalizedBranchName := utility.NormalizeBranchName(*branchName, *prefix, *separator)
+
 	// First validate the branch as a valid input
-	matched := utility.Validate(normalizedBranch, "\\d+\\.\\d+\\.x$")
+	matched := utility.Validate(normalizedBranchName, "\\d+\\.\\d+\\.x$")
 	if matched == false {
 		log.Fatalln("Branch is not matching with the following syntax of \"number.number.x\"")
 	}
 	// Get the tags and filter it by using the branch name return incremented one
 	githubClient := clients.CreateGithubClient()
-	tagToBeCreated := githubClient.GetIncrementedTag(owner, repository, normalizedBranch)
+	tagToBeCreated := githubClient.GetIncrementedTag(owner, repository, normalizedBranchName)
 	fmt.Println(tagToBeCreated)
 }

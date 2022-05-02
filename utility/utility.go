@@ -9,12 +9,20 @@ import (
 	"strings"
 )
 
+// Validate Validates string against the regex provided returns bool
+// or exits
 func Validate(input string, regex string) bool {
 	matched, err := regexp.MatchString(regex, input)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	return matched
+}
+
+// NormalizeBranchName removes prefix and seperator from the branch name and returns
+// semver branch
+func NormalizeBranchName(branchName string, prefix string, separator string) string {
+	return strings.Replace(branchName, fmt.Sprintf("%s%s", prefix, separator), "", 1)
 }
 
 func GetMaxSemver(v string, w string) string {
