@@ -19,5 +19,5 @@ tags.
 
 Then the output can be used for the tag and release creation.
 
-## Necessary Information
-`GITHUB_TOKEN` must be given in order to get tags for the repository. 
+## Necessary Environment Variables
+`GITHUB_TOKEN` must be given in order to get tags for the repository.
