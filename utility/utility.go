@@ -35,4 +35,5 @@ func IncrementPatch(tag string) string {
 	i = i + 1
 	semverArray[len(semverArray)-1] = strconv.Itoa(i)
 	return strings.Join(semverArray, ".")
+	test branch
 }
