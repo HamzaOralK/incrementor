@@ -32,4 +32,5 @@ func main() {
 	githubClient := clients.CreateGithubClient()
 	tagToBeCreated := githubClient.GetIncrementedTag(owner, repository, normalizedBranchName)
 	fmt.Println(tagToBeCreated)
+	test
 }
